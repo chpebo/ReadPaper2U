@@ -1,0 +1,38 @@
+# User-generated saves (IndexedDB exports, JSON conversation snapshots)
+saves/
+*.save.json
+
+# Local development scratch
+.claude/
+*.local.html
+*.local.json
+
+# Local LLM library fallbacks (large vendored copies of PDF.js / KaTeX)
+# Comment out these two lines if you want to vendor them in the repo.
+lib/
+node_modules/
+
+# Python helper script artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Source artwork for process_avatar.py (HEIC originals are private)
+*.heic
+*.HEIC
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Build / packaging output (none used by default; reserved for future)
+dist/
+build/
