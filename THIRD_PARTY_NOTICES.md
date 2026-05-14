@@ -1,8 +1,8 @@
 # Third-Party Notices
 
 ReadPaper2U is licensed under the MIT License (see [LICENSE](./LICENSE)).
-At runtime it loads two third-party JavaScript libraries from public CDNs,
-each carrying its own license. Their notices are reproduced below.
+At runtime it loads three third-party JavaScript libraries from public
+CDNs, each carrying its own license. Their notices are reproduced below.
 
 The avatar image `banni.png` is an original photograph of the author's cat,
 released under the same MIT license as the rest of this repository.
@@ -22,6 +22,7 @@ licenses (HPND, Apache 2.0, and MIT respectively).
 - **Loaded from:** `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js`
 - **Worker loaded from:** `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`
 - **License:** Apache License 2.0
+- **When loaded:** at boot, regardless of feature usage.
 
 For offline use, place the corresponding minified files at:
 
@@ -42,6 +43,7 @@ The Apache 2.0 license text is available at
 - **CSS loaded from:** `https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css`
 - **JS loaded from:** `https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js`
 - **License:** MIT License
+- **When loaded:** at boot, regardless of feature usage.
 
 For offline use, place the corresponding files at:
 
@@ -53,6 +55,26 @@ lib/katex/fonts/...
 
 The full KaTeX MIT license is available at
 <https://github.com/KaTeX/KaTeX/blob/main/LICENSE>.
+
+---
+
+## Mermaid
+
+- **Project:** Mermaid — <https://mermaid.js.org/>
+- **Version pinned by this app:** 11.x (`mermaid@11`)
+- **JS loaded from:** `https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js`
+- **License:** MIT License
+- **When loaded:** lazily, only on first use of the **Mind Map** feature.
+  Users who never open the mind map never fetch this library.
+
+For offline use of the mind map, place the minified bundle at:
+
+```
+lib/mermaid.min.js
+```
+
+The full Mermaid MIT license is available at
+<https://github.com/mermaid-js/mermaid/blob/develop/LICENSE>.
 
 ---
 

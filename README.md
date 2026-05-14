@@ -13,6 +13,10 @@ are rendered or summarized inline; conversation state is saved locally.
 The whole application lives in one `index.html` (no build step, no server
 required beyond a static file host).
 
+A first-run demo (Attention Is All You Need, fully offline, no API needed)
+is embedded so you can try the reading experience before configuring
+anything.
+
 ---
 
 ## Features
@@ -23,18 +27,29 @@ required beyond a static file host).
   dialogue read by a customizable companion character.
 - **Q&A mode** — after the visual-novel pass finishes, ask the model
   follow-up questions about the paper.
+- **Embedded offline demo** — the upload screen has a one-click demo
+  loader (Attention Is All You Need) with three pre-baked language
+  versions, designed to convey the full experience without any API
+  configuration.
+- **Script translation** — if your interface language no longer matches
+  the script's language, a one-click button (or auto-prompt) translates
+  the entire script in place, scene by scene, and saves the result.
 - **Mind map** — generate an argument-structure mind map from the
-  dialogue script with one click, with SVG and PNG export for
-  embedding the diagram in notes or slides.
+  dialogue script with one click, with SVG and PNG export for embedding
+  the diagram in notes or slides.
 - **Figure/table handling** — four modes: off, caption-only, vision-model
   description, or inline embedding of figure descriptions in the dialogue.
 - **Math rendering** — LaTeX rendered with KaTeX.
 - **Multilingual** — interface and dialogue available in Simplified
-  Chinese, Traditional Chinese, English, and Korean.
-- **Light and dark themes** — switch from Settings; both themes share the
-  same CSS variable system.
+  Chinese, English, and Korean.
+- **Light and dark themes** — switch from Settings or the topbar toggle;
+  both themes share the same CSS variable system.
 - **Keyboard shortcuts** — Next/Previous, auto-play, dialogue log, and a
   help overlay; the full mapping is visible by pressing `?`.
+- **Adaptive auto-play** — the dwell on each scene scales with its text
+  length and the script's dominant script (CJK characters per minute vs.
+  Latin words per minute), so short narration moves quickly and long
+  explanations get reading time.
 - **Emotion-specific character animations** — companion sprite reacts to
   dialogue beats with subtle motion cues.
 - **Persistent saves** — conversations stored in IndexedDB; optional
@@ -92,37 +107,46 @@ python -m http.server 8765
 # then visit http://localhost:8765
 ```
 
-On first run, click the **Settings** button on the home screen and fill
-in:
+The home screen lands on a Start button. The first time around you can
+explore the application by clicking the Start button and then opening
+the embedded **Attention Is All You Need** demo — the upload screen has
+a card titled "Try the demo" that loads a 32-scene walkthrough with no
+API required.
+
+To use your own papers, open **Settings** (gear icon in the top right or
+the SETTINGS button on the home screen) and fill in:
 
 1. **API base URL** — e.g. `https://api.deepseek.com/v1`,
    `https://api.openai.com/v1`, or any other OpenAI-compatible endpoint.
 2. **Model name** — e.g. `deepseek-chat`, `gpt-4o-mini`, etc.
 3. **API key** — stored only in `localStorage` on this device.
 
-Then drop a PDF onto the upload card or paste an arXiv link. Once a
-session is in progress, the gear icon in the top-right opens the same
-settings panel.
+Then drop a PDF onto the upload card or paste an arXiv link.
 
 ### Offline / air-gapped use
 
-By default PDF.js and KaTeX are loaded from public CDNs
-(`cdnjs.cloudflare.com`, `cdn.jsdelivr.net`). The app falls back to a
-local `lib/` folder if the CDNs are unreachable. To use it offline, place
-the following files next to `index.html`:
+By default PDF.js, KaTeX, and Mermaid (used only when you generate a mind
+map) are loaded from public CDNs (`cdnjs.cloudflare.com`,
+`cdn.jsdelivr.net`). The app falls back to a local `lib/` folder if the
+CDNs are unreachable. To use it offline, place the following files next
+to `index.html`:
 
 ```
 lib/
 ├── pdf.min.js
 ├── pdf.worker.min.js
+├── mermaid.min.js              # only needed for the Mind Map feature
 └── katex/
     ├── katex.min.js
     ├── katex.min.css
     └── fonts/...
 ```
 
-Files are available from the official PDF.js and KaTeX releases listed in
-[THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+The embedded demo runs fully offline without any of these (it doesn't
+parse PDFs or render mind maps).
+
+Files are available from the official PDF.js, KaTeX, and Mermaid releases
+listed in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ---
 
@@ -136,6 +160,7 @@ The app runs entirely in the browser. Specifically:
   header of requests to your configured endpoint.
 - Saves are stored in your browser's IndexedDB (and optionally exported
   to a folder you choose).
+- The embedded demo makes no network calls at all.
 
 When uploading **unpublished** manuscripts, review your LLM provider's
 data-retention and training-use policies before proceeding.
@@ -154,6 +179,7 @@ readpaper2u/
 ├── README.md               # English (this file)
 ├── README.zh-CN.md         # Simplified Chinese
 ├── README.ko.md            # Korean
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── THIRD_PARTY_NOTICES.md
 ├── requirements.txt        # deps for process_avatar.py only
@@ -201,14 +227,14 @@ This project is released under the MIT License. See [LICENSE](./LICENSE).
 
 The default companion avatar `banni.png` is an original photograph of the
 author's cat, also released under the MIT license. Third-party libraries
-loaded at runtime (PDF.js, KaTeX) carry their own licenses; see
+loaded at runtime (PDF.js, KaTeX, Mermaid) carry their own licenses; see
 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ---
 
 ## Acknowledgments
 
-Built on top of [PDF.js](https://mozilla.github.io/pdf.js/) (Apache 2.0) and
-[KaTeX](https://katex.org/) (MIT). LLM inference is delegated to whichever
-OpenAI-compatible endpoint you supply. Banni, the default companion, is a
-real cat.
+Built on top of [PDF.js](https://mozilla.github.io/pdf.js/) (Apache 2.0),
+[KaTeX](https://katex.org/) (MIT), and [Mermaid](https://mermaid.js.org/)
+(MIT). LLM inference is delegated to whichever OpenAI-compatible endpoint
+you supply. Banni, the default companion, is a real cat.

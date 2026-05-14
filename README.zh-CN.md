@@ -12,6 +12,10 @@ ReadPaper2U 是一个单文件的网页应用，可将一篇 PDF 学术论文转
 整个应用就是一份 `index.html`，无需构建步骤，任何静态文件服务器都
 能托管。
 
+应用内嵌了一份首次运行体验用的 demo（Attention Is All You Need，
+完全离线、无需配置 API），无论是否准备好接入模型，都可以先试一遍
+完整的阅读流程。
+
 ---
 
 ## 功能
@@ -20,16 +24,25 @@ ReadPaper2U 是一个单文件的网页应用，可将一篇 PDF 学术论文转
   arXiv 链接。
 - **视觉小说模式**——将论文内容改写为伴读角色逐轮讲述的对白脚本。
 - **Q&A 模式**——视觉小说读完之后，针对论文内容向模型继续追问。
+- **内嵌离线 demo**——上传页提供一键加载的演示（Attention Is All
+  You Need），预置中 / 英 / 韩三种语言版本，完整呈现阅读体验，
+  全程不需要配置 API。
+- **剧本翻译 (script translation)**——当当前剧本语言与界面语言不
+  匹配时，可以一键（或通过自动询问）将整份剧本逐场景翻译为当前
+  界面语言，结果会自动覆盖保存。
 - **思维导图 (mind map)**——一键基于对话脚本生成论点结构图，并支持
   导出为 SVG / PNG，方便嵌入笔记或幻灯片。
 - **图表处理**——四档可选：关闭、仅图注、由视觉模型生成描述、或
   将图描述内嵌进对白。
 - **公式渲染**——LaTeX 公式由 KaTeX 渲染。
-- **多语言**——界面与对白支持简体中文、繁体中文、英文、韩文。
-- **明暗主题 (light & dark themes)**——可在设置中切换，二者共用同一
-  套 CSS 变量体系。
+- **多语言**——界面与对白支持简体中文、英文、韩文。
+- **明暗主题 (light & dark themes)**——可在设置中切换，也可通过顶部
+  栏的图标快捷切换，二者共用同一套 CSS 变量体系。
 - **键盘快捷键 (keyboard shortcuts)**——下一句 / 上一句、自动播放、
   对话历史，以及一个快捷键速查面板（按 `?` 可随时调出）。
+- **自适应自动播放 (adaptive auto-play)**——每个场景的停留时间会根据
+  其文本长度与脚本的主导文字（CJK 字符 / 分钟 vs. 拉丁单词 / 分钟）
+  自动调整：短旁白快速推进，长解释留出足够阅读时间。
 - **情绪相关的角色动画 (emotion-specific character animations)**——
   伴读角色立绘会根据对白情绪做出细微的动态反馈。
 - **持久存档**——对话状态保存在 IndexedDB；可选通过
@@ -77,34 +90,42 @@ python -m http.server 8765
 # 然后访问 http://localhost:8765
 ```
 
-首次运行时在主页菜单点**设置**按钮，填入以下三项：
+首次打开会停留在主页。可以先点 START 进入上传页，在上传页中部的
+"看看 demo：Attention Is All You Need"卡片可一键加载一份预置的
+32 个场景的演示剧本，**整个过程不需要配置 API**。
+
+要读自己的论文时，点开**设置**（右上角齿轮图标或主页的 SETTINGS
+按钮），填入以下三项：
 
 1. **API 基础地址 (base URL)**——例如 `https://api.deepseek.com/v1`、
    `https://api.openai.com/v1`，或任一 OpenAI 兼容端点。
 2. **模型名称**——例如 `deepseek-chat`、`gpt-4o-mini` 等。
 3. **API key**——仅保存在当前设备的 `localStorage` 中。
 
-填好之后将 PDF 拖入上传区，或粘贴一个 arXiv 链接。进入剧本之后，
-右上角的齿轮图标会打开同一个设置面板。
+填好之后将 PDF 拖入上传区，或粘贴一个 arXiv 链接。
 
 ### 离线 / 内网环境
 
-默认情况下，PDF.js 与 KaTeX 从公共 CDN
-（`cdnjs.cloudflare.com`、`cdn.jsdelivr.net`）加载。当 CDN 不可达时，
-应用会回退到本地 `lib/` 目录。若要完全离线使用，请将以下文件放置
-在 `index.html` 同级：
+默认情况下，PDF.js、KaTeX 以及 Mermaid（仅在生成思维导图时加载）
+从公共 CDN（`cdnjs.cloudflare.com`、`cdn.jsdelivr.net`）加载。当 CDN
+不可达时，应用会回退到本地 `lib/` 目录。若要完全离线使用，请将以下
+文件放置在 `index.html` 同级：
 
 ```
 lib/
 ├── pdf.min.js
 ├── pdf.worker.min.js
+├── mermaid.min.js              # 仅思维导图功能需要
 └── katex/
     ├── katex.min.js
     ├── katex.min.css
     └── fonts/...
 ```
 
-具体文件可从 PDF.js 与 KaTeX 的官方发布版获取，详见
+内嵌 demo 完全离线运行，不依赖上述任何文件（它既不解析 PDF，也不
+渲染思维导图）。
+
+具体文件可从 PDF.js、KaTeX 与 Mermaid 的官方发布版获取，详见
 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
 
 ---
@@ -118,6 +139,7 @@ lib/
 - API key 不会离开浏览器，仅出现在向你所配置端点发出的请求的
   `Authorization` 头中。
 - 存档保存在浏览器的 IndexedDB 中（也可选择导出到你指定的文件夹）。
+- 内嵌 demo 不发起任何网络请求。
 
 上传**未发表**的论文稿件之前，请先确认所选 LLM 服务商的数据保留与
 训练用途条款。
@@ -136,6 +158,7 @@ readpaper2u/
 ├── README.md               # 英文 README
 ├── README.zh-CN.md         # 本文件
 ├── README.ko.md            # 韩文 README
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── THIRD_PARTY_NOTICES.md
 ├── requirements.txt        # 仅供 process_avatar.py 使用
@@ -180,13 +203,14 @@ python process_avatar.py
 本项目以 MIT License 发布。详见 [LICENSE](./LICENSE)。
 
 默认伴读头像 `banni.png` 是作者拍摄的自家猫的原创照片，同样以
-MIT 许可证发布。运行时加载的第三方库 (PDF.js、KaTeX) 各自适用其
-原始许可，详见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
+MIT 许可证发布。运行时加载的第三方库 (PDF.js、KaTeX、Mermaid) 各自
+适用其原始许可，详见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
 
 ---
 
 ## 致谢
 
-构建于 [PDF.js](https://mozilla.github.io/pdf.js/)（Apache 2.0）与
-[KaTeX](https://katex.org/)（MIT）之上。LLM 推理由你所配置的
+构建于 [PDF.js](https://mozilla.github.io/pdf.js/)（Apache 2.0）、
+[KaTeX](https://katex.org/)（MIT）与
+[Mermaid](https://mermaid.js.org/)（MIT）之上。LLM 推理由你所配置的
 OpenAI 兼容端点完成。Banni（默认伴读角色）是一只真实存在的猫。

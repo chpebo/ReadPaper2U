@@ -1132,6 +1132,38 @@
     font-size: 11px; color: var(--text-faint);
   }
 
+  /* Demo card on upload screen */
+  .demo-card {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 12px; padding: 12px 14px;
+    background: var(--bg-1); border: 1px solid var(--border);
+    border-radius: 10px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  }
+  .demo-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-3);
+    transform: translateY(-1px);
+  }
+  .demo-card:active { transform: translateY(0); }
+  .demo-card-icon {
+    font-size: 22px; line-height: 1; flex-shrink: 0;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(232, 150, 125, 0.12);
+    border-radius: 8px;
+  }
+  .demo-card-body { flex: 1; min-width: 0; }
+  .demo-card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .demo-card-desc {
+    font-size: 12px; color: var(--text-dim);
+    margin-top: 2px; line-height: 1.4;
+  }
+  .demo-card-cta {
+    color: var(--accent); font-size: 13px;
+    font-weight: 600; flex-shrink: 0;
+  }
+
   /* ---------- VN extras: note popup, auto button, log button ---------- */
   .note-popup {
     position: absolute; left: 5%; right: auto; bottom: 220px;
@@ -1353,33 +1385,38 @@
   <div class="brand">
     <div class="brand-mark"></div>
     <span>ReadPaper2U</span>
-    <span style="color: var(--text-faint); font-size: 12px; margin-left: 4px;">— 和论文喵一喵</span>
+    <span style="color: var(--text-faint); font-size: 12px; margin-left: 4px;" data-i18n="topbar.tagline">— 和论文喵一喵</span>
   </div>
   <div class="topbar-actions">
-    <span class="usage-badge" id="usage-badge" title="累计 prompt tokens (缓存命中%) / completion tokens · 调用次数"></span>
-    <button class="icon-btn" id="btn-mindmap" title="论文思维导图" style="display: none;">
+    <span class="usage-badge" id="usage-badge" title="累计 prompt tokens (缓存命中%) / completion tokens · 调用次数" data-i18n-title="topbar.usage"></span>
+    <button class="icon-btn" id="btn-translate-script" title="翻译当前剧本" data-i18n-title="translate.title" style="display: none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="btn-mindmap" title="论文思维导图" data-i18n-title="topbar.mindmap" style="display: none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><line x1="9.5" y1="10.5" x2="5.5" y2="7.5"/><line x1="14.5" y1="10.5" x2="18.5" y2="7.5"/><line x1="9.5" y1="13.5" x2="5.5" y2="16.5"/><line x1="14.5" y1="13.5" x2="18.5" y2="16.5"/>
       </svg>
     </button>
-    <button class="icon-btn" id="btn-replay" title="重新开始本轮对话（保留当前论文与剧本）" style="display: none;">
+    <button class="icon-btn" id="btn-replay" title="重新开始本轮对话（保留当前论文与剧本）" data-i18n-title="topbar.replay" style="display: none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="11 17 6 12 11 7"/>
         <polyline points="18 17 13 12 18 7"/>
       </svg>
     </button>
-    <button class="icon-btn" id="btn-restart" title="回到主页">
+    <button class="icon-btn" id="btn-restart" title="回到主页" data-i18n-title="topbar.restart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 11.5L12 4l9 7.5"/>
         <path d="M5 10v10h5v-6h4v6h5V10"/>
       </svg>
     </button>
-    <button class="icon-btn" id="btn-shortcuts" title="快捷键 (?)">
+    <button class="icon-btn" id="btn-shortcuts" title="快捷键 (?)" data-i18n-title="topbar.shortcuts">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
       </svg>
     </button>
-    <button class="icon-btn theme-toggle" id="btn-theme" title="切换主题">
+    <button class="icon-btn theme-toggle" id="btn-theme" title="切换主题" data-i18n-title="topbar.theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
       </svg>
@@ -1387,7 +1424,7 @@
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
     </button>
-    <button class="icon-btn" id="btn-settings" title="API 设置">
+    <button class="icon-btn" id="btn-settings" title="API 设置" data-i18n-title="topbar.settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"/>
         <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1A2 2 0 1 1 4.3 17l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1A2 2 0 1 1 7 4.3l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
@@ -1476,6 +1513,15 @@
           <span data-i18n="upload.blackboardMode">小黑板常驻模式</span>
           <span class="upload-toggle-hint" data-i18n="upload.blackboardHint">关键术语 / 公式 / 论点会持续显示在右侧</span>
         </label>
+
+        <div class="demo-card" id="demo-card" role="button" tabindex="0">
+          <div class="demo-card-icon">📖</div>
+          <div class="demo-card-body">
+            <div class="demo-card-title" data-i18n="demo.cardTitle">看看 demo：Attention Is All You Need</div>
+            <div class="demo-card-desc" data-i18n="demo.cardDesc">不用配 API 也能完整体验：跟着班尼一起读 Transformer 这篇里程碑论文。</div>
+          </div>
+          <div class="demo-card-cta" data-i18n="demo.cardCta">打开 →</div>
+        </div>
 
         <div class="upload-actions">
           <button class="btn-primary btn" id="btn-generate" data-i18n="upload.generate">生成对话</button>
@@ -1916,6 +1962,19 @@
   </div>
 </div>
 
+<!-- ============ DEMO FINISH OVERLAY ============ -->
+<div class="overlay" id="demo-finish-overlay">
+  <div class="panel">
+    <h2 data-i18n="demo.finishTitle">Demo 结束</h2>
+    <div class="subtitle" data-i18n="demo.finishBody">想读自己的论文？在「设置」里填好 API，然后上传 PDF 或粘贴 arXiv 链接即可。</div>
+    <div class="panel-actions">
+      <button class="btn btn-ghost" id="btn-demo-finish-close" data-i18n="demo.finishClose">关闭</button>
+      <span style="flex: 1;"></span>
+      <button class="btn-primary btn" id="btn-demo-finish-configure" data-i18n="demo.finishConfigure">去配置 API</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ CONCEPT MAP OVERLAY ============ -->
 <div class="overlay" id="mindmap-overlay">
   <div class="panel panel-wide" style="max-width:900px;">
@@ -2225,6 +2284,14 @@
     zh: {
       'common.backTitle': '← 返回主页',
       'common.cancel': '取消', 'common.save': '保存', 'common.close': '关闭',
+      'topbar.tagline': '— 和论文喵一喵',
+      'topbar.usage': '累计 prompt tokens (缓存命中%) / completion tokens · 调用次数',
+      'topbar.mindmap': '论文思维导图',
+      'topbar.replay': '重新开始本轮对话（保留当前论文与剧本）',
+      'topbar.restart': '回到主页',
+      'topbar.shortcuts': '快捷键 (?)',
+      'topbar.theme': '切换主题',
+      'topbar.settings': 'API 设置',
       'title.subtitle': '和你的搭档一起读论文吧～',
       'title.start': '开始', 'title.partner': '搭档', 'title.saves': '存档', 'title.settings': '设置',
       'title.newPaper': '上传新论文 →',
@@ -2373,11 +2440,36 @@
       'charEdit.nameRequired': '名字是必填的',
       'charEdit.fieldsRequired': '性格和说话风格是必填的',
       'charEdit.confirmDelete': '确定要删除这个角色吗？',
+      'translate.title': '翻译当前剧本',
+      'translate.cancel': '取消翻译',
+      'translate.confirm': '将当前剧本翻译为{lang}？这会调用一次模型，并替换当前剧本（自动保存到存档）。',
+      'translate.inProgress': '正在翻译剧本…',
+      'translate.lengthMismatch': '翻译结果的场景数不匹配（原 {expected}，得到 {got}）。请重试。',
+      'translate.autoPrompt': '检测到当前剧本是{source}，但你的界面语言是{target}。是否翻译为{target}？',
+      'demo.cardTitle': '看看 demo：Attention Is All You Need',
+      'demo.cardDesc': '不用配 API 也能完整体验：跟着班尼一起读 Transformer 这篇里程碑论文。',
+      'demo.cardCta': '打开 →',
+      'demo.badge': 'DEMO',
+      'demo.switchLang': '切换 demo 语言',
+      'demo.mindmapDisabled': '思维导图功能需要配置 API。配好后用真实论文体验更佳～',
+      'demo.qaDisabled': 'Demo 到此结束。配置 API 后可以加载自己的论文并与之对话。',
+      'demo.finishTitle': 'Demo 结束',
+      'demo.finishBody': '想读自己的论文？在「设置」里填好 API，然后上传 PDF 或粘贴 arXiv 链接即可。',
+      'demo.finishClose': '关闭',
+      'demo.finishConfigure': '去配置 API',
     },
     en: {
       'common.backTitle': '← Back to home',
       'common.cancel': 'Cancel', 'common.save': 'Save', 'common.close': 'Close',
-      'title.subtitle': "Let's read papers with {name}!",
+      'topbar.tagline': '— chat with your paper',
+      'topbar.usage': 'Cumulative prompt tokens (cache hit %) / completion tokens · calls',
+      'topbar.mindmap': 'Paper mind map',
+      'topbar.replay': 'Replay this script (keeps the current paper and script)',
+      'topbar.restart': 'Back to home',
+      'topbar.shortcuts': 'Keyboard shortcuts (?)',
+      'topbar.theme': 'Toggle theme',
+      'topbar.settings': 'API settings',
+      'title.subtitle': "Let's read a paper together.",
       'title.start': 'Start', 'title.partner': 'Partner', 'title.saves': 'Saves', 'title.settings': 'Settings',
       'title.newPaper': 'Upload a new paper →',
       'title.footer': 'Click any button to begin',
@@ -2525,11 +2617,36 @@
       'charEdit.nameRequired': 'Name is required',
       'charEdit.fieldsRequired': 'Personality and style are required',
       'charEdit.confirmDelete': 'Delete this character?',
+      'translate.title': 'Translate current script',
+      'translate.cancel': 'Cancel translation',
+      'translate.confirm': 'Translate the current script to {lang}? This makes one model call and replaces the current script (auto-saved to your saves).',
+      'translate.inProgress': 'Translating script…',
+      'translate.lengthMismatch': 'Scene count mismatch in translation (expected {expected}, got {got}). Try again.',
+      'translate.autoPrompt': 'This script appears to be in {source}, but your UI language is {target}. Translate it to {target}?',
+      'demo.cardTitle': 'Try the demo: Attention Is All You Need',
+      'demo.cardDesc': 'No API needed. Walk through the Transformer paper with Banni.',
+      'demo.cardCta': 'Open →',
+      'demo.badge': 'DEMO',
+      'demo.switchLang': 'Switch demo language',
+      'demo.mindmapDisabled': 'Mind map needs an API. Set one up and try it on a real paper.',
+      'demo.qaDisabled': 'The demo ends here. Configure an API to upload your own papers and chat with them.',
+      'demo.finishTitle': 'Demo complete',
+      'demo.finishBody': 'Ready for your own papers? Set up an API in Settings, then upload a PDF or paste an arXiv link.',
+      'demo.finishClose': 'Close',
+      'demo.finishConfigure': 'Open Settings',
     },
     ko: {
       'common.backTitle': '← 메인으로',
       'common.cancel': '취소', 'common.save': '저장', 'common.close': '닫기',
-      'title.subtitle': '{name}와 함께 논문을 읽어요!',
+      'topbar.tagline': '— 논문과 대화하기',
+      'topbar.usage': '누적 프롬프트 토큰 (캐시 적중률) / 완성 토큰 · 호출 횟수',
+      'topbar.mindmap': '논문 마인드맵',
+      'topbar.replay': '이 스크립트 다시 시작 (현재 논문과 스크립트 유지)',
+      'topbar.restart': '메인으로',
+      'topbar.shortcuts': '단축키 (?)',
+      'topbar.theme': '테마 전환',
+      'topbar.settings': 'API 설정',
+      'title.subtitle': '함께 논문을 읽어봅시다.',
       'title.start': '시작', 'title.partner': '파트너', 'title.saves': '저장', 'title.settings': '설정',
       'title.newPaper': '새 논문 업로드 →',
       'title.footer': '버튼을 눌러 시작하세요',
@@ -2677,6 +2794,23 @@
       'charEdit.nameRequired': '이름은 필수입니다',
       'charEdit.fieldsRequired': '성격과 말투는 필수입니다',
       'charEdit.confirmDelete': '이 캐릭터를 삭제할까요?',
+      'translate.title': '현재 스크립트 번역',
+      'translate.cancel': '번역 취소',
+      'translate.confirm': '현재 스크립트를 {lang}(으)로 번역할까요? 모델을 한 번 호출하고 현재 스크립트를 대체합니다 (저장에 자동 저장됨).',
+      'translate.inProgress': '스크립트 번역 중…',
+      'translate.lengthMismatch': '번역 결과의 장면 수가 일치하지 않습니다 (원본 {expected}, 받음 {got}). 다시 시도하세요.',
+      'translate.autoPrompt': '이 스크립트는 {source}(으)로 작성된 것 같지만, UI 언어는 {target}입니다. {target}(으)로 번역할까요?',
+      'demo.cardTitle': '데모 보기: Attention Is All You Need',
+      'demo.cardDesc': 'API 없이도 완전한 체험: 반니와 함께 Transformer 논문을 읽어봅시다.',
+      'demo.cardCta': '열기 →',
+      'demo.badge': '데모',
+      'demo.switchLang': '데모 언어 전환',
+      'demo.mindmapDisabled': '마인드맵은 API 설정이 필요합니다. 실제 논문에서 사용해 보세요.',
+      'demo.qaDisabled': '데모는 여기서 끝입니다. API를 설정하면 직접 논문을 올려서 대화할 수 있어요.',
+      'demo.finishTitle': '데모 완료',
+      'demo.finishBody': '직접 논문을 읽고 싶다면 설정에서 API를 구성한 뒤 PDF를 업로드하거나 arXiv 링크를 붙여넣으세요.',
+      'demo.finishClose': '닫기',
+      'demo.finishConfigure': '설정 열기',
     },
   };
 
@@ -2836,6 +2970,194 @@
     builtin: false,
   };
 
+  // Transient demo character — loaded only while the user is in the embedded
+  // demo. Never written to state.characters or persisted. The id '__demo__'
+  // is reserved; activeCharacter() resolves it directly to DEMO_CHARACTERS[lang].
+  const DEMO_CHARACTERS = {
+    zh: {
+      id: '__demo__', name: '班尼', species: '长毛猫',
+      appearance: '奶白色和银灰色的毛发，眼神好奇明亮',
+      personality: '元气满满、好奇心旺盛，面对论文内容认真不浮夸',
+      style: '语气活泼直白，用日常画面解释抽象概念；不会的会直接说不会',
+      energy: 'energetic', formality: 'casual', humor: 'warm',
+      signature: '喵～',
+      expertise: '机器学习、NLP，尤其擅长把抽象模型翻译成生活化的画面',
+      quirks: '看到漂亮的公式两眼发光',
+      image: 'banni.png', builtin: true,
+    },
+    en: {
+      id: '__demo__', name: 'Banni', species: 'long-haired cat',
+      appearance: 'cream and silver fur, bright curious eyes',
+      personality: 'energetic, curious, takes the paper seriously but never stuffy',
+      style: 'direct and lively; explains abstract ideas through everyday imagery; admits gaps when they exist',
+      energy: 'energetic', formality: 'casual', humor: 'warm',
+      signature: 'meow~',
+      expertise: 'ML and NLP, especially at turning abstract models into concrete pictures',
+      quirks: 'eyes light up at elegant equations',
+      image: 'banni.png', builtin: true,
+    },
+    ko: {
+      id: '__demo__', name: '반니', species: '장모종 고양이',
+      appearance: '크림색과 은회색 털, 호기심 가득한 눈',
+      personality: '활기차고 호기심 많으며 논문 내용을 진지하게 대함',
+      style: '직설적이고 활기찬 어조; 추상 개념을 일상 비유로 풀어 설명; 모르는 건 모른다고 말함',
+      energy: 'energetic', formality: 'casual', humor: 'warm',
+      signature: '냐옹~',
+      expertise: '머신러닝과 NLP, 특히 추상 모델을 직관적인 그림으로 옮기는 데 강함',
+      quirks: '우아한 수식을 보면 눈이 빛남',
+      image: 'banni.png', builtin: true,
+    },
+  };
+
+  // Demo script bodies, one per UI language. The Attention Is All You Need
+  // walkthrough — about 30 scenes covering motivation, scaled dot-product
+  // attention, multi-head, positional encoding, the encoder-decoder stack,
+  // training details, results, and the paper's significance. No figure_ref
+  // entries since the demo is meant to run fully offline with no assets.
+  const DEMO_SCRIPTS = {
+    zh: {
+      title: 'Attention Is All You Need',
+      summary: '2017 年 Vaswani 等人提出的 Transformer——只用注意力、没有循环和卷积——在翻译任务上以更低训练成本击败 RNN/CNN 基线，奠定了此后几乎所有大语言模型的基础。',
+      scenes: [
+        { id: 1, type: 'narration', speaker: null, emotion: 'normal', text: '想象 2017 年下半年。带注意力的 RNN 编解码器是机器翻译的金标准。能用，但训练慢，长句子尤其吃力。' },
+        { id: 2, type: 'dialogue', speaker: '班尼', emotion: 'happy', text: '你好喵～ 我是班尼。今天我们来读 Vaswani 等人 2017 年的论文：Attention Is All You Need。标题听起来很大胆，背后的工作几乎塑造了之后所有大语言模型。' },
+        { id: 3, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: 'RNN 的麻烦在于必须一个一个来。要算第 t 个时刻，得先把前 t-1 个算完。GPU 喜欢并行，RNN 偏偏把它锁成串行。' },
+        { id: 4, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '当时的注意力（Bahdanau，Luong）是给 RNN 打的"补丁"——让解码器跨距离去看编码器某些位置。帮助很大，但慢吞吞的 RNN 主干还在。' },
+        { id: 5, type: 'question', speaker: 'user', emotion: 'normal', text: '那干脆把 RNN 拿掉呢？' },
+        { id: 6, type: 'dialogue', speaker: '班尼', emotion: 'happy', text: '这正是这篇论文的大胆主张：把循环和卷积都拿掉，只用注意力。每个位置一次性看到整个序列，整层在 GPU 上完全并行。' },
+        { id: 7, type: 'narration', speaker: null, emotion: 'normal', text: '论文的核心：scaled dot-product attention（缩放点积注意力）。' },
+        { id: 8, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: '想象一座图书馆。每个 token 同时担任三个角色：query 是"它在找什么"，key 是"它的标签"，value 是"它的真实内容"。对每个 query，与所有 key 做匹配，按匹配程度加权所有 value 再求和。这一句话就是注意力。' },
+        { id: 9, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '把上面那句话写成公式：', blackboard: 'Attention(Q, K, V) = softmax( Q K^T / √d_k ) V' },
+        { id: 10, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: '注意分母里的 √d_k——这就是 scaled 的来历。少了它，d_k 一大点积就膨胀，softmax 几乎变成 one-hot，梯度就死掉了。' },
+        { id: 11, type: 'quiz', speaker: null, emotion: 'normal', text: '为什么要在 softmax 之前除以 √d_k？',
+          options: ['让结果变成确定的（去掉随机性）。', '让点积的方差大致保持稳定，避免 softmax 饱和。', '强制要求 Q 和 K 是单位向量。', '让训练时显存更省一些。'],
+          answer_index: 1,
+          explanation: '两个维度为 d_k 的随机向量做点积，方差大约正比于 d_k。除以 √d_k 把方差归一化到大致常数，softmax 才不会随着 d_k 增大而饱和。' },
+        { id: 12, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '一层注意力只能学一组关系。但句子里有主谓、修饰、共指等多种关系，所以论文里同时跑 h 个注意力头，每个有自己的 Q/K/V 投影。' },
+        { id: 13, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '把多头形式写出来：', blackboard: 'MultiHead(Q, K, V) = Concat(head_1, ..., head_h) W^O\nhead_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)' },
+        { id: 14, type: 'dialogue', speaker: '班尼', emotion: 'happy', text: '每个头从不同角度看句子。基础配置 h=8，每个头 d_k=d_v=64，加起来正好是 512 维隐藏状态。' },
+        { id: 15, type: 'narration', speaker: null, emotion: 'normal', text: '位置信息。' },
+        { id: 16, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: '只有自注意力，模型对位置完全不敏感——打乱 token 顺序，输出还是一样。但"狗咬人"和"人咬狗"显然差很多，所以要把位置信息注入进去。' },
+        { id: 17, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '论文用的是固定的正弦位置编码——每个位置对应一个由 sin/cos 在不同频率上取值组成的向量：', blackboard: 'PE(pos, 2i)   = sin(pos / 10000^(2i / d_model))\nPE(pos, 2i+1) = cos(pos / 10000^(2i / d_model))' },
+        { id: 18, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '为什么用 sin/cos？因为相对位置可以通过这些值的线性组合表示，相当于给模型送了一个有用的归纳偏置。', note: 'sin(a+b) 和 cos(a+b) 都能用 sin(a)、cos(a) 的线性组合表示——这正是相对位置可学的关键。' },
+        { id: 19, type: 'question', speaker: 'user', emotion: 'normal', text: '为什么不让模型自己学位置 embedding？' },
+        { id: 20, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '论文里也试过 learned positional embedding，效果几乎一样。选 sin/cos 是因为它能更自然地外推到训练时没见过的更长序列。' },
+        { id: 21, type: 'quiz', speaker: null, emotion: 'normal', text: 'Transformer 为什么需要位置编码？',
+          options: ['纯自注意力把输入当作集合，本身看不见词序。', '为了在长序列上加速训练。', '为了取代 embedding 查表。', '为了让模型对输入排列保持不变。'],
+          answer_index: 0,
+          explanation: '自注意力对所有 token 做加权求和，与顺序无关。没有位置编码，"cat eats fish"和"fish eats cat"对模型完全一样。' },
+        { id: 22, type: 'narration', speaker: null, emotion: 'normal', text: '完整结构：编码器堆 + 解码器堆。' },
+        { id: 23, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '编码器是 6 层相同结构。每层 = 多头自注意力 → 前馈网络，每个子层外面包一层残差连接和 LayerNorm。' },
+        { id: 24, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: '解码器也是 6 层，但每层多一块——cross-attention，让解码器在生成时去看编码器的输出。还有一处关键：解码器的自注意力是带遮罩的，位置 t 只能看到 t 之前的内容，否则就泄漏了答案。' },
+        { id: 25, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '残差连接和 LayerNorm 让这个深堆叠能训得动；前馈网络其实就是两个线性层夹一个 ReLU，对每个位置独立作用。', note: 'FFN 内部维度 d_ff = 2048，是 d_model 的 4 倍——这个比例后来变成了几乎所有 Transformer 的标配。' },
+        { id: 26, type: 'narration', speaker: null, emotion: 'normal', text: '训练和结果。' },
+        { id: 27, type: 'dialogue', speaker: '班尼', emotion: 'happy', text: 'WMT-14 英德：28.4 BLEU，超过之前最好成绩 2 点以上。WMT-14 英法：41.8 BLEU。训练成本只算 GPU-day，不是 GPU-week。一句话——更好，更快。' },
+        { id: 28, type: 'dialogue', speaker: '班尼', emotion: 'normal', text: '细节也很讲究：Adam + 自定义学习率（4000 步 warmup，之后按 1/√t 衰减）；label smoothing = 0.1；dropout 0.1 加在多处。这些后来被整个领域沿用。' },
+        { id: 29, type: 'quiz', speaker: null, emotion: 'normal', text: '这篇论文的核心实证结论是什么？',
+          options: ['没有循环和卷积的模型，在更低训练成本下能打平或超过 RNN/CNN 翻译模型。', '在 RNN 上加注意力可以提高 BLEU。', 'Transformer 的复杂度随序列长度线性增长。', '自注意力比 RNN 更能泛化到未见过的领域。'],
+          answer_index: 0,
+          explanation: '论文的标题性结果是：纯注意力架构在标准翻译基准上打过 RNN 和 CNN baseline，且训练壁钟时间更短。' },
+        { id: 30, type: 'dialogue', speaker: '班尼', emotion: 'happy', text: '为什么这篇这么重要？BERT、GPT、T5……几乎所有现代基础模型都是从这一篇生出来的。"堆 Transformer 块"如今是默认范式。' },
+        { id: 31, type: 'dialogue', speaker: '班尼', emotion: 'thinking', text: '不过有一点要留意：注意力对序列长度是平方复杂度——计算和显存都是。512 个 token 没问题，32K 就很贵。怎么造高效注意力，后来形成了一整个子领域。' },
+        { id: 32, type: 'narration', speaker: null, emotion: 'normal', text: 'Demo 到此结束。配好 API 之后，你就可以用自己的论文走完同样的流程。' },
+      ],
+    },
+    en: {
+      title: 'Attention Is All You Need',
+      summary: "Vaswani et al. (2017) introduce the Transformer — an attention-only architecture with no recurrence or convolution — which beats RNN and CNN baselines on translation at lower training cost and lays the foundation for nearly every modern large language model.",
+      scenes: [
+        { id: 1, type: 'narration', speaker: null, emotion: 'normal', text: 'Picture late 2017. RNN encoder–decoder models with attention are the gold standard for machine translation. They work, but they train slowly and long sentences crawl.' },
+        { id: 2, type: 'dialogue', speaker: 'Banni', emotion: 'happy', text: "Hi there~ I'm Banni. Today we're reading Vaswani et al.'s 2017 paper, Attention Is All You Need. The title is bold, and the work behind it shaped almost every large language model that came after." },
+        { id: 3, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: 'The problem with RNNs is they go one step at a time. To compute step t you first have to finish steps 1 through t-1. GPUs love parallelism, but RNNs serialize the work.' },
+        { id: 4, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'Existing attention back then (Bahdanau, Luong) was a patch on top of RNNs — it let the decoder look back at the encoder across long distances. It helped a lot, but the slow RNN spine was still there.' },
+        { id: 5, type: 'question', speaker: 'user', emotion: 'normal', text: 'What if we drop the RNN entirely?' },
+        { id: 6, type: 'dialogue', speaker: 'Banni', emotion: 'happy', text: "That's the paper's bold claim — drop recurrence and convolution entirely and keep only attention. Each position sees the whole sequence at once, and a whole layer runs fully parallel on a GPU." },
+        { id: 7, type: 'narration', speaker: null, emotion: 'normal', text: "The paper's centerpiece: scaled dot-product attention." },
+        { id: 8, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: "Picture a library. Every token plays three roles at once: query is what it's looking for, key is the label it offers, value is its actual content. For each query you match against all keys, weight every value by how good the match is, and sum them up. That one sentence is attention." },
+        { id: 9, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'Written as a formula:', blackboard: 'Attention(Q, K, V) = softmax( Q K^T / √d_k ) V' },
+        { id: 10, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: 'See the √d_k in the denominator? That is the "scaled" part. Without it, when d_k is large the dot products blow up, the softmax collapses near one-hot, and gradients die.' },
+        { id: 11, type: 'quiz', speaker: null, emotion: 'normal', text: 'Why divide by √d_k inside the softmax?',
+          options: ['To make the result deterministic.', 'To keep the dot-product variance roughly constant and prevent softmax saturation.', 'To force Q and K to be unit vectors.', 'To reduce memory usage during training.'],
+          answer_index: 1,
+          explanation: "The dot product of two random vectors of dimension d_k has variance proportional to d_k. Dividing by √d_k normalizes that variance to roughly a constant, so the softmax doesn't saturate as d_k grows." },
+        { id: 12, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'One attention layer learns one set of patterns. But sentences have multiple kinds of relations — subject/verb, modifier/noun, coreference — so the paper runs h heads in parallel, each with its own Q/K/V projections.' },
+        { id: 13, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'Written out:', blackboard: 'MultiHead(Q, K, V) = Concat(head_1, ..., head_h) W^O\nhead_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)' },
+        { id: 14, type: 'dialogue', speaker: 'Banni', emotion: 'happy', text: 'Each head views the sentence from a different angle. The base config uses h=8 heads with d_k=d_v=64 each, which sums back to the 512-dim hidden state.' },
+        { id: 15, type: 'narration', speaker: null, emotion: 'normal', text: 'Position information.' },
+        { id: 16, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: 'Pure self-attention is position-blind — shuffle the tokens and the output is the same. But "dog bites man" and "man bites dog" are clearly different, so position info has to be injected.' },
+        { id: 17, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'The paper uses fixed sinusoidal positional encodings — each position gets a vector built from sines and cosines at different frequencies:', blackboard: 'PE(pos, 2i)   = sin(pos / 10000^(2i / d_model))\nPE(pos, 2i+1) = cos(pos / 10000^(2i / d_model))' },
+        { id: 18, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'Why sines and cosines? Because relative positions can be expressed as linear combinations of these values — a useful inductive bias handed to the model.', note: 'sin(a+b) and cos(a+b) are both linear combinations of sin(a), cos(a) — which is exactly what makes relative positions learnable here.' },
+        { id: 19, type: 'question', speaker: 'user', emotion: 'normal', text: 'Why not let the model learn the position embeddings?' },
+        { id: 20, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'They tried learned positional embeddings too — performance was almost identical. They picked sines and cosines because the form extrapolates more naturally to sequence lengths the model never saw during training.' },
+        { id: 21, type: 'quiz', speaker: null, emotion: 'normal', text: 'Why does the Transformer need positional encoding?',
+          options: ['Pure self-attention treats input as a set, so word order would otherwise be invisible.', 'To speed up training on long sequences.', 'To replace the embedding lookup table.', 'To make the model invariant to input permutations.'],
+          answer_index: 0,
+          explanation: 'Self-attention is a weighted sum over all tokens regardless of order. Without positional encoding, "cat eats fish" and "fish eats cat" look identical to the model.' },
+        { id: 22, type: 'narration', speaker: null, emotion: 'normal', text: 'The full architecture: encoder stack + decoder stack.' },
+        { id: 23, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'The encoder is 6 identical layers. Each layer is multi-head self-attention then a feed-forward block, with residual connections and LayerNorm wrapping each sublayer.' },
+        { id: 24, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: "The decoder also has 6 layers, plus one extra sublayer — cross-attention so the decoder can look at the encoder output while generating. Crucially, the decoder's self-attention is masked: position t can only see positions before t, otherwise it leaks the answer." },
+        { id: 25, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'Residual connections and LayerNorm make the deep stack trainable; the feed-forward block is just two linear layers with a ReLU between, applied independently to each position.', note: 'FFN inner dim d_ff = 2048, four times d_model — this ratio became the default in almost every later Transformer.' },
+        { id: 26, type: 'narration', speaker: null, emotion: 'normal', text: 'Training and results.' },
+        { id: 27, type: 'dialogue', speaker: 'Banni', emotion: 'happy', text: 'WMT-14 English-to-German: 28.4 BLEU, beating prior state of the art by over 2 points. English-to-French: 41.8 BLEU. And training cost is measured in GPU-days, not GPU-weeks. In short: better and faster.' },
+        { id: 28, type: 'dialogue', speaker: 'Banni', emotion: 'normal', text: 'The details are careful: Adam with a custom schedule (4000 warmup steps, then inverse-square-root decay), label smoothing 0.1, dropout 0.1 in many places. These choices got carried over by the whole field afterwards.' },
+        { id: 29, type: 'quiz', speaker: null, emotion: 'normal', text: "What is the paper's central empirical claim?",
+          options: ['A model with no recurrence or convolution matches or beats RNN/CNN translation models at lower training cost.', 'Adding attention to RNNs improves BLEU scores.', 'Transformers scale linearly with sequence length.', 'Self-attention generalizes better than RNNs to unseen domains.'],
+          answer_index: 0,
+          explanation: 'The headline result is that a pure-attention architecture beats RNN- and CNN-based baselines on standard translation benchmarks while taking less wall-clock training time.' },
+        { id: 30, type: 'dialogue', speaker: 'Banni', emotion: 'happy', text: 'Why this paper matters: BERT, GPT, T5, name your favorite — almost every modern foundation model descends from this design. "Stack transformer blocks" is now the default template.' },
+        { id: 31, type: 'dialogue', speaker: 'Banni', emotion: 'thinking', text: 'One caveat to keep in mind: attention is quadratic in sequence length — compute and memory both. Fine at 512 tokens, painful at 32K. Building efficient attention has grown into a whole sub-literature.' },
+        { id: 32, type: 'narration', speaker: null, emotion: 'normal', text: 'End of the demo. Set up an API and you can walk through your own papers the same way.' },
+      ],
+    },
+    ko: {
+      title: 'Attention Is All You Need',
+      summary: 'Vaswani 등(2017)이 제안한 Transformer — 순환과 합성곱이 없는 어텐션 전용 아키텍처 — 가 더 낮은 학습 비용으로 RNN/CNN 베이스라인을 기계번역에서 이기며, 이후 거의 모든 대형 언어 모델의 토대가 되었습니다.',
+      scenes: [
+        { id: 1, type: 'narration', speaker: null, emotion: 'normal', text: '2017년 후반을 떠올려 봅시다. 어텐션이 달린 RNN 인코더-디코더가 기계번역의 표준이었어요. 동작은 잘 했지만 학습이 느리고, 긴 문장에서 특히 느렸습니다.' },
+        { id: 2, type: 'dialogue', speaker: '반니', emotion: 'happy', text: '안녕~ 반니예요. 오늘은 Vaswani 등의 2017년 논문 Attention Is All You Need를 함께 읽어볼게요. 제목은 대담하고, 이 논문의 작업이 이후 거의 모든 대형 언어 모델을 만들어냈어요.' },
+        { id: 3, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: 'RNN의 문제는 한 번에 한 단계씩 진행해야 한다는 거예요. t 시점을 계산하려면 1부터 t-1까지 먼저 끝내야 하죠. GPU는 병렬을 좋아하지만 RNN은 그것을 직렬로 묶어버려요.' },
+        { id: 4, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '당시의 어텐션(Bahdanau, Luong)은 RNN 위에 덧붙여진 보조였어요 — 디코더가 인코더의 먼 위치를 다시 볼 수 있게 해줬죠. 도움은 컸지만 느린 RNN 척추는 그대로였어요.' },
+        { id: 5, type: 'question', speaker: 'user', emotion: 'normal', text: 'RNN을 아예 빼버리면 어떨까요?' },
+        { id: 6, type: 'dialogue', speaker: '반니', emotion: 'happy', text: '그게 바로 이 논문의 대담한 주장이에요 — 순환과 합성곱을 완전히 버리고 어텐션만 남기는 거죠. 각 위치가 전체 시퀀스를 한 번에 보고, 한 층 전체가 GPU에서 완전히 병렬로 돌아가요.' },
+        { id: 7, type: 'narration', speaker: null, emotion: 'normal', text: '논문의 핵심: scaled dot-product attention(스케일드 닷-프로덕트 어텐션).' },
+        { id: 8, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: '도서관을 떠올려 봐요. 모든 토큰이 세 가지 역할을 동시에 해요 — query는 찾고 있는 것, key는 자신이 내거는 라벨, value는 실제 내용이에요. 각 query를 모든 key와 매칭하고, 매칭 정도에 따라 value에 가중치를 줘서 합치죠. 이 한 문장이 어텐션이에요.' },
+        { id: 9, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '공식으로 쓰면:', blackboard: 'Attention(Q, K, V) = softmax( Q K^T / √d_k ) V' },
+        { id: 10, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: '분모에 √d_k 보이죠? 그게 "스케일드"의 의미예요. 이게 없으면 d_k가 커질 때 점곱이 폭발해서 softmax가 거의 one-hot이 되고, 그래디언트가 죽어버려요.' },
+        { id: 11, type: 'quiz', speaker: null, emotion: 'normal', text: '왜 softmax 안에서 √d_k로 나눌까요?',
+          options: ['결과를 결정적으로 만들기 위해.', '점곱 분산을 대체로 일정하게 유지해 softmax 포화를 막기 위해.', 'Q와 K를 단위 벡터로 강제하기 위해.', '학습 시 메모리를 줄이기 위해.'],
+          answer_index: 1,
+          explanation: 'd_k 차원 무작위 벡터 두 개의 점곱은 분산이 d_k에 비례해요. √d_k로 나누면 분산을 대략 상수로 정규화해서, d_k가 커져도 softmax가 포화되지 않아요.' },
+        { id: 12, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '한 어텐션 층은 한 종류의 관계만 배워요. 그런데 문장에는 주어/동사, 수식/명사, 공지시 같은 여러 관계가 있죠. 그래서 논문은 h개의 헤드를 병렬로 돌리고, 각 헤드가 자신만의 Q/K/V 사영을 가져요.' },
+        { id: 13, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '식으로 쓰면:', blackboard: 'MultiHead(Q, K, V) = Concat(head_1, ..., head_h) W^O\nhead_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)' },
+        { id: 14, type: 'dialogue', speaker: '반니', emotion: 'happy', text: '각 헤드가 다른 각도에서 문장을 봐요. 기본 설정은 h=8 헤드에 각각 d_k=d_v=64로, 합치면 512차원 은닉 상태가 돼요.' },
+        { id: 15, type: 'narration', speaker: null, emotion: 'normal', text: '위치 정보.' },
+        { id: 16, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: '순수 자기 어텐션은 위치를 못 봐요 — 토큰을 섞어도 출력이 같아요. 하지만 "개가 사람을 물다"와 "사람이 개를 물다"는 전혀 다르죠. 그래서 위치 정보를 주입해야 해요.' },
+        { id: 17, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '논문은 고정된 사인파 위치 인코딩을 써요 — 각 위치는 서로 다른 주파수의 sin/cos 값으로 이루어진 벡터를 갖죠:', blackboard: 'PE(pos, 2i)   = sin(pos / 10000^(2i / d_model))\nPE(pos, 2i+1) = cos(pos / 10000^(2i / d_model))' },
+        { id: 18, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '왜 sin/cos일까요? 상대 위치를 이 값들의 선형 결합으로 표현할 수 있어요. 모델에게 유용한 귀납 편향을 건네는 셈이에요.', note: 'sin(a+b)와 cos(a+b)는 모두 sin(a), cos(a)의 선형 결합으로 표현돼요 — 이것이 여기서 상대 위치가 학습 가능한 이유예요.' },
+        { id: 19, type: 'question', speaker: 'user', emotion: 'normal', text: '모델이 위치 임베딩을 직접 배우게 하면 안 되나요?' },
+        { id: 20, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '논문에서 학습 가능한 위치 임베딩도 시도했고, 성능은 거의 같았어요. sin/cos를 택한 건 학습 때 보지 못한 더 긴 시퀀스 길이로도 더 자연스럽게 외삽되기 때문이에요.' },
+        { id: 21, type: 'quiz', speaker: null, emotion: 'normal', text: 'Transformer는 왜 위치 인코딩이 필요할까요?',
+          options: ['순수 자기 어텐션은 입력을 집합으로 다루므로 그대로는 어순을 볼 수 없어요.', '긴 시퀀스에서 학습을 가속하기 위해.', '임베딩 룩업 테이블을 대체하기 위해.', '모델을 입력 순열에 불변하게 만들기 위해.'],
+          answer_index: 0,
+          explanation: '자기 어텐션은 순서와 무관하게 모든 토큰의 가중합이에요. 위치 인코딩이 없으면 "cat eats fish"와 "fish eats cat"이 모델에게는 똑같이 보여요.' },
+        { id: 22, type: 'narration', speaker: null, emotion: 'normal', text: '전체 구조: 인코더 스택 + 디코더 스택.' },
+        { id: 23, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '인코더는 6개의 동일한 층으로 구성돼요. 각 층은 멀티헤드 자기 어텐션 → 피드포워드이고, 각 서브층 바깥은 잔차 연결과 LayerNorm으로 감싸요.' },
+        { id: 24, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: '디코더도 6층이고 서브층이 하나 더 있어요 — 크로스 어텐션으로, 디코더가 생성하면서 인코더 출력을 볼 수 있죠. 중요한 점: 디코더의 자기 어텐션은 마스킹되어 위치 t는 t 이전 위치만 볼 수 있어요. 안 그러면 정답이 새요.' },
+        { id: 25, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '잔차 연결과 LayerNorm이 깊은 스택을 학습 가능하게 해줘요. 피드포워드 블록은 단순히 두 개의 선형 층 사이에 ReLU가 있는 구조로, 각 위치에 독립적으로 작용해요.', note: 'FFN 내부 차원 d_ff = 2048, d_model의 4배 — 이 비율이 이후 거의 모든 Transformer의 기본값이 됐어요.' },
+        { id: 26, type: 'narration', speaker: null, emotion: 'normal', text: '학습과 결과.' },
+        { id: 27, type: 'dialogue', speaker: '반니', emotion: 'happy', text: 'WMT-14 영어-독일어: 28.4 BLEU, 이전 최고를 2점 넘게 갱신. 영어-프랑스어: 41.8 BLEU. 학습 비용은 GPU-주가 아니라 GPU-일로 잴 정도였어요. 한 마디로 — 더 좋고 더 빠르죠.' },
+        { id: 28, type: 'dialogue', speaker: '반니', emotion: 'normal', text: '세부도 꼼꼼해요: Adam에 커스텀 학습률(4000 스텝 워밍업 후 1/√t 감쇠), 라벨 스무딩 0.1, 곳곳에 드롭아웃 0.1. 이 선택들은 이후 분야 전체에 그대로 이어졌어요.' },
+        { id: 29, type: 'quiz', speaker: null, emotion: 'normal', text: '이 논문의 핵심 실증 주장은 무엇일까요?',
+          options: ['순환과 합성곱이 없는 모델이 더 낮은 학습 비용으로 RNN/CNN 번역 모델을 따라잡거나 능가한다.', 'RNN에 어텐션을 추가하면 BLEU가 올라간다.', 'Transformer는 시퀀스 길이에 선형으로 스케일한다.', '자기 어텐션은 RNN보다 미지의 도메인에 더 잘 일반화한다.'],
+          answer_index: 0,
+          explanation: '핵심 결과는 순수 어텐션 구조가 표준 번역 벤치마크에서 RNN/CNN 베이스라인을 이기면서, 학습 벽시계 시간도 더 짧다는 거예요.' },
+        { id: 30, type: 'dialogue', speaker: '반니', emotion: 'happy', text: '왜 이 논문이 중요할까요: BERT, GPT, T5 등 거의 모든 현대 기초 모델이 이 설계에서 파생됐어요. "Transformer 블록을 쌓는다"는 지금 분야의 기본 템플릿이에요.' },
+        { id: 31, type: 'dialogue', speaker: '반니', emotion: 'thinking', text: '다만 하나 유념할 점: 어텐션은 시퀀스 길이에 대해 제곱 복잡도예요 — 연산도 메모리도. 512 토큰까진 괜찮지만 32K가 되면 부담돼요. 효율적인 어텐션을 만드는 일은 이후 별도의 큰 연구 갈래가 됐어요.' },
+        { id: 32, type: 'narration', speaker: null, emotion: 'normal', text: '데모는 여기까지. API를 설정하면 직접 논문으로 같은 과정을 진행할 수 있어요.' },
+      ],
+    },
+  };
+
   const state = {
     settings: {
       baseUrl: 'https://api.deepseek.com', model: 'deepseek-chat', apiKey: '',
@@ -2869,6 +3191,9 @@
   };
 
   function activeCharacter() {
+    if (state.activeCharId === '__demo__') {
+      return DEMO_CHARACTERS[state.settings.language] || DEMO_CHARACTERS.en;
+    }
     return state.characters.find(c => c.id === state.activeCharId) || state.characters[0] || DEFAULT_CHARACTER;
   }
 
@@ -2899,6 +3224,7 @@
     btnRestart: $('btn-restart'),
     btnReplay: $('btn-replay'),
     btnMindmapTop: $('btn-mindmap'),
+    btnTranslateScript: $('btn-translate-script'),
     usageBadge: $('usage-badge'),
     qaBackBtn: $('qa-back-btn'),
     titleCharacter: $('title-character'),
@@ -2911,6 +3237,10 @@
     partnerBackTitle: $('partner-back-title'),
     savesBackTitle: $('saves-back-title'),
     uploadBlackboardToggle: $('upload-blackboard-toggle'),
+    demoCard: $('demo-card'),
+    demoFinishOverlay: $('demo-finish-overlay'),
+    btnDemoFinishClose: $('btn-demo-finish-close'),
+    btnDemoFinishConfigure: $('btn-demo-finish-configure'),
     notePopup: $('note-popup'),
     noteText: $('note-text'),
     btnLog: $('btn-log'),
@@ -3362,6 +3692,7 @@
 
   function clearSession() {
     if (_saveTimer) { clearTimeout(_saveTimer); _saveTimer = null; }
+    if (typeof exitDemoIfActive === 'function') exitDemoIfActive();
     Object.values(SS_KEYS).forEach(k => sessionStorage.removeItem(k));
     state.paperText = '';
     state.paperName = '';
@@ -3394,6 +3725,7 @@
     const hasScript = !!(state.script && state.script.scenes && state.script.scenes.length);
     if (dom.btnReplay) dom.btnReplay.style.display = (onTitle || !hasScript) ? 'none' : '';
     if (dom.btnMindmapTop) dom.btnMindmapTop.style.display = (onTitle || !hasScript) ? 'none' : '';
+    if (dom.btnTranslateScript) dom.btnTranslateScript.style.display = (onTitle || !hasScript) ? 'none' : '';
     if (dom.btnRestart) dom.btnRestart.style.display = onTitle ? 'none' : '';
     if (dom.btnSettings) dom.btnSettings.style.display = onTitle ? 'none' : '';
   }
@@ -3865,6 +4197,26 @@
     const sample = text.length > 4000 ? text.slice(0, 4000) : text;
     const cjk = (sample.match(/[一-鿿぀-ヿ가-힯]/g) || []).length;
     return cjk / sample.length > 0.3;
+  }
+
+  // Returns 'zh' | 'en' | 'ko' | null based on which script dominates the
+  // first few scene texts. Used to detect script-language vs UI-language
+  // mismatches and offer translation. Returns null when the sample is too
+  // short or no script clearly dominates.
+  function inferScriptLanguage() {
+    const scenes = state.script && state.script.scenes;
+    if (!scenes || !scenes.length) return null;
+    const sample = scenes.slice(0, 5).map(s => s && s.text || '').join(' ');
+    if (sample.length < 30) return null;
+    const ko = (sample.match(/[가-힯]/g) || []).length;
+    const cn = (sample.match(/[一-鿿]/g) || []).length;
+    const la = (sample.match(/[A-Za-z]/g) || []).length;
+    const max = Math.max(ko, cn, la);
+    if (max === 0) return null;
+    if (ko === max && ko > sample.length * 0.18) return 'ko';
+    if (cn === max && cn > sample.length * 0.18) return 'zh';
+    if (la === max && la > sample.length * 0.3) return 'en';
+    return null;
   }
 
   // Section markers in multiple languages — used for slice anchors when
@@ -5648,6 +6000,10 @@ ${blackboardMode
   function hideLogModal() { if (dom.logOverlay) dom.logOverlay.classList.remove('visible'); }
 
   function transitionToQA() {
+    if (isDemoScript()) {
+      showDemoFinish();
+      return;
+    }
     state.phase = 'qa';
     dom.userBubble.classList.remove('visible');
     dom.blackboard.classList.remove('visible');
@@ -6002,6 +6358,12 @@ If a question is outside the paper, say so explicitly.`;
     injectCharacterSVGs();
     refreshCharacterImages();
     renderCurrentTurn();
+    if (dom.btnTranslateScript) {
+      const key = isDemoScript() ? 'demo.switchLang' : 'translate.title';
+      dom.btnTranslateScript.dataset.i18nTitle = key;
+      dom.btnTranslateScript.title = t(key);
+    }
+    if (typeof maybePromptTranslate === 'function') maybePromptTranslate();
   }
 
   function enterQA() {
@@ -6392,6 +6754,7 @@ If a question is outside the paper, say so explicitly.`;
   let _autoSaveTimer = null;
   function autoSaveCurrentSession() {
     if (!state.script || !state.script.scenes || !state.script.scenes.length) return;
+    if (state.script.isDemo) return;
     if (_autoSaveTimer) return;
     _autoSaveTimer = setTimeout(async () => {
       _autoSaveTimer = null;
@@ -6601,8 +6964,12 @@ If a question is outside the paper, say so explicitly.`;
     // Title screen routing
     if (dom.btnTitleStart) dom.btnTitleStart.addEventListener('click', () => {
       const scenes = state.script && state.script.scenes;
-      if (scenes && scenes.length && state.paperText) {
+      const hasReal = scenes && scenes.length && state.paperText;
+      const hasDemo = scenes && scenes.length && state.script.isDemo;
+      if (hasReal) {
         state.phase === 'qa' ? enterQA() : enterVN();
+      } else if (hasDemo) {
+        enterVN();
       } else {
         showScreen('upload');
       }
@@ -6647,7 +7014,11 @@ If a question is outside the paper, say so explicitly.`;
     if (dom.logOverlay) dom.logOverlay.addEventListener('click', (e) => { if (e.target === dom.logOverlay) hideLogModal(); });
 
     // Settings — segmented controls
-    bindSegGroup(dom.cfgLanguage, (val) => { state.settings.language = val; applyI18N(); });
+    bindSegGroup(dom.cfgLanguage, (val) => {
+      state.settings.language = val;
+      applyI18N();
+      if (state.phase === 'vn' && typeof maybePromptTranslate === 'function') maybePromptTranslate();
+    });
     bindSegGroup(dom.cfgTheme, (val) => { state.settings.theme = val; applyTheme(); });
     bindSegGroup(dom.cfgFontSize, (val) => { state.settings.fontSize = val; applyFontSize(); });
     bindSegGroup(dom.cfgDetailLevel, (val) => { state.settings.detailLevel = val; });
@@ -6663,6 +7034,27 @@ If a question is outside the paper, say so explicitly.`;
 
     // Mind map
     if (dom.btnMindmapTop) dom.btnMindmapTop.addEventListener('click', showMindmapOverlay);
+    if (dom.btnTranslateScript) dom.btnTranslateScript.addEventListener('click', translateScript);
+    if (dom.demoCard) {
+      const openDemo = () => loadDemo();
+      dom.demoCard.addEventListener('click', openDemo);
+      dom.demoCard.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDemo(); }
+      });
+    }
+    if (dom.btnDemoFinishClose) dom.btnDemoFinishClose.addEventListener('click', () => {
+      hideDemoFinish();
+      exitDemoIfActive();
+      clearSession();
+      enterTitle();
+    });
+    if (dom.btnDemoFinishConfigure) dom.btnDemoFinishConfigure.addEventListener('click', () => {
+      hideDemoFinish();
+      showSettingsOverlay();
+    });
+    if (dom.demoFinishOverlay) dom.demoFinishOverlay.addEventListener('click', (e) => {
+      if (e.target === dom.demoFinishOverlay) hideDemoFinish();
+    });
     if (dom.btnMindmapGenerate) dom.btnMindmapGenerate.addEventListener('click', generateMindmap);
     if (dom.btnMindmapCancel) dom.btnMindmapCancel.addEventListener('click', () => {
       if (_mmInFlight && _mmAbort) { _mmAbort.abort(); return; }
@@ -6789,6 +7181,7 @@ If a question is outside the paper, say so explicitly.`;
   let _mmDrag = null;
 
   function showMindmapOverlay() {
+    if (isDemoScript()) { alert(t('demo.mindmapDisabled')); return; }
     if (!dom.mindmapOverlay) return;
     if (_mmInFlight) { dom.mindmapOverlay.classList.add('visible'); return; }
     const hasResult = !!dom.mindmapBody.querySelector('.mindmap-zoom-container');
@@ -7033,6 +7426,194 @@ If a question is outside the paper, say so explicitly.`;
     return window.__mermaidLoading;
   }
 
+  /* ---------- Script translation ---------- */
+  let _trInFlight = false;
+  let _trAbort = null;
+
+  const _trPromptedScripts = new Set();
+  const LANG_LABELS = {
+    zh: { zh: '中文', en: 'Chinese', ko: '중국어' },
+    en: { zh: '英文', en: 'English', ko: '영어' },
+    ko: { zh: '韩文', en: 'Korean', ko: '한국어' },
+  };
+
+  function maybePromptTranslate() {
+    if (_trInFlight) return;
+    if (!state.script || !state.script.scenes || !state.script.scenes.length) return;
+    if (state.script.isDemo) return;
+    if (!settingsValid()) return;
+    const target = state.settings.language;
+    const source = inferScriptLanguage();
+    if (!source || source === target) return;
+    const key = (state.script.title || '') + '|' + ((state.script.scenes[0] && state.script.scenes[0].text || '').slice(0, 50));
+    if (_trPromptedScripts.has(key)) return;
+    _trPromptedScripts.add(key);
+    setTimeout(() => {
+      if (state.phase !== 'vn' || _trInFlight) return;
+      const srcName = (LANG_LABELS[source] || {})[target] || source;
+      const tgtName = (LANG_LABELS[target] || {})[target] || target;
+      if (confirm(t('translate.autoPrompt', { source: srcName, target: tgtName }))) {
+        translateScript({ skipConfirm: true });
+      }
+    }, 600);
+  }
+
+  async function translateScript(opts) {
+    opts = opts || {};
+    if (isDemoScript()) { cycleDemoLanguage(); return; }
+    if (_trInFlight) { _trAbort && _trAbort.abort(); return; }
+    if (!state.script || !state.script.scenes || !state.script.scenes.length) return;
+    if (!settingsValid()) { showError(t('errors.fillSettings')); return; }
+    const targetLang = state.settings.language;
+    const targetName = targetLang === 'en' ? 'English' : targetLang === 'ko' ? '한국어' : '简体中文';
+    if (!opts.skipConfirm && !confirm(t('translate.confirm', { lang: targetName }))) return;
+
+    _trInFlight = true;
+    _trAbort = new AbortController();
+    if (dom.btnTranslateScript) {
+      dom.btnTranslateScript.classList.add('active');
+      dom.btnTranslateScript.title = t('translate.cancel');
+    }
+    setLoading(t('translate.inProgress'), '', '');
+    showScreen('loading');
+    state.inFlightAbort = _trAbort;
+
+    const sourcePayload = {
+      title: state.script.title || '',
+      summary: state.script.summary || '',
+      scenes: state.script.scenes.map(s => ({
+        id: s.id, type: s.type, speaker: s.speaker, emotion: s.emotion,
+        text: s.text || '',
+        blackboard: s.blackboard || null,
+        note: s.note || null,
+        options: Array.isArray(s.options) ? s.options : undefined,
+        answer_index: typeof s.answer_index === 'number' ? s.answer_index : undefined,
+        explanation: s.explanation || undefined,
+        figure_ref: s.figure_ref || null,
+      })),
+    };
+
+    const sys = `You translate a visual-novel script JSON into ${targetName}. Translate ONLY these text fields: title, summary, and for each scene: text, blackboard, note, options[], explanation. Keep ALL OTHER fields unchanged exactly as given: id, type, speaker, emotion, answer_index, figure_ref. Preserve the exact JSON shape, the same number of scenes in the same order, and the same option count per quiz. Return ONE JSON object inside a single \`\`\`json … \`\`\` fence and nothing else.`;
+    const userMsg = `Target language: ${targetName}.\n\nSource script JSON:\n\`\`\`json\n${JSON.stringify(sourcePayload)}\n\`\`\``;
+
+    let raw = '';
+    try {
+      await streamChatCompletion([
+        { role: 'system', content: sys },
+        { role: 'user', content: userMsg },
+      ], (delta, full) => {
+        raw = full;
+        if (dom.loadingStep) {
+          dom.loadingStep.textContent = t('loading.generatedChars', { count: full.length.toLocaleString() });
+        }
+      }, { temperature: 0.2, signal: _trAbort.signal, maxAttempts: 2 });
+
+      const parsed = extractJSON(raw);
+      const validated = validateScript(parsed);
+      if (!validated.scenes || validated.scenes.length !== state.script.scenes.length) {
+        throw new Error(t('translate.lengthMismatch', {
+          expected: state.script.scenes.length,
+          got: validated.scenes ? validated.scenes.length : 0,
+        }));
+      }
+      const merged = state.script.scenes.map((orig, i) => {
+        const tr = validated.scenes[i] || {};
+        return Object.assign({}, orig, {
+          text: tr.text || orig.text,
+          blackboard: tr.blackboard !== undefined ? tr.blackboard : orig.blackboard,
+          note: tr.note !== undefined ? tr.note : orig.note,
+          options: Array.isArray(tr.options) && orig.type === 'quiz' ? tr.options : orig.options,
+          explanation: tr.explanation || orig.explanation,
+        });
+      });
+      state.script = {
+        title: validated.title || state.script.title,
+        summary: validated.summary || state.script.summary,
+        scenes: merged,
+      };
+      flushSession();
+      autoSaveCurrentSession();
+      enterVN();
+    } catch (e) {
+      if (!(e && e.name === 'AbortError')) showError(e.message);
+      if (state.phase === 'loading') enterVN();
+    } finally {
+      _trInFlight = false;
+      _trAbort = null;
+      state.inFlightAbort = null;
+      if (dom.btnTranslateScript) {
+        dom.btnTranslateScript.classList.remove('active');
+        dom.btnTranslateScript.title = t('translate.title');
+      }
+    }
+  }
+
+  /* ---------- Demo ---------- */
+  function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+  function isDemoScript() {
+    return !!(state.script && state.script.isDemo);
+  }
+
+  function loadDemo() {
+    if (!DEMO_SCRIPTS) return;
+    const lang = state.settings.language;
+    const body = DEMO_SCRIPTS[lang] || DEMO_SCRIPTS.en;
+    if (state.inFlightAbort) state.inFlightAbort.abort();
+    state.paperText = '';
+    state.paperName = 'Attention Is All You Need (demo)';
+    state.truncated = false;
+    state.figureInventory = [];
+    state.qaHistory = [];
+    state.persistentBlackboard = [];
+    state.currentTurn = 0;
+    state.script = Object.assign(deepClone(body), { isDemo: true });
+    if (state.activeCharId !== '__demo__') {
+      state._priorCharId = state.activeCharId;
+    }
+    state.activeCharId = '__demo__';
+    state.phase = 'vn';
+    persistPaperMeta();
+    flushSession();
+    hideError();
+    enterVN();
+  }
+
+  function exitDemoIfActive() {
+    if (!isDemoScript()) return;
+    const stored = localStorage.getItem(LS_KEYS.activeCharId);
+    if (stored && stored !== '__demo__' && state.characters.some(c => c.id === stored)) {
+      state.activeCharId = stored;
+    } else {
+      state.activeCharId = state.characters[0] ? state.characters[0].id : null;
+    }
+    delete state._priorCharId;
+  }
+
+  // Demo translate behaviour: cycle through pre-baked zh → en → ko → zh.
+  function cycleDemoLanguage() {
+    if (!DEMO_SCRIPTS) return;
+    const order = ['zh', 'en', 'ko'];
+    const cur = state.settings.language;
+    const next = order[(order.indexOf(cur) + 1) % order.length];
+    state.settings.language = next;
+    persistSettings();
+    applyI18N();
+    const body = DEMO_SCRIPTS[next];
+    state.script = Object.assign(deepClone(body), { isDemo: true });
+    state.currentTurn = 0;
+    state.persistentBlackboard = [];
+    flushSession();
+    enterVN();
+  }
+
+  function showDemoFinish() {
+    if (dom.demoFinishOverlay) dom.demoFinishOverlay.classList.add('visible');
+  }
+  function hideDemoFinish() {
+    if (dom.demoFinishOverlay) dom.demoFinishOverlay.classList.remove('visible');
+  }
+
   /* ---------- Boot ---------- */
   function boot() {
     loadSettings();
@@ -7050,9 +7631,13 @@ If a question is outside the paper, say so explicitly.`;
     loadPersistedSaveDir().catch(() => {});
 
     // Resume into the saved phase if a session is in flight; otherwise show title.
+    // Demo sessions don't have paperText but should still resume in VN.
     const scenes = state.script && state.script.scenes;
-    if (scenes && scenes.length > 0 && state.paperText && (state.phase === 'vn' || state.phase === 'qa')) {
-      if (state.phase === 'qa' || state.currentTurn >= scenes.length) enterQA();
+    const hasUploadedPaper = scenes && scenes.length > 0 && state.paperText;
+    const hasDemo = scenes && scenes.length > 0 && state.script.isDemo;
+    if (state.script && state.script.isDemo) state.activeCharId = '__demo__';
+    if ((hasUploadedPaper || hasDemo) && (state.phase === 'vn' || state.phase === 'qa')) {
+      if (!state.script.isDemo && (state.phase === 'qa' || state.currentTurn >= scenes.length)) enterQA();
       else enterVN();
     } else {
       enterTitle();
